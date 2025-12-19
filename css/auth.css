@@ -1,75 +1,614 @@
-/* --- Tela de Autenticação --- */
+/* --- Landing Page & Autenticação --- */
 .auth-container {
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* --- Hero Section --- */
+.landing-hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(-45deg, #7c3aed, #4f46e5, #0ea5e9, #10b981);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    padding: 2rem;
+    text-align: center;
+    overflow: hidden;
+}
+
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.hero-content {
+    max-width: 500px;
+    z-index: 10;
+    position: relative;
+}
+
+.hero-logo {
+    width: 100px;
+    height: 100px;
+    border-radius: 24px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    background: white;
+    padding: 10px;
+}
+
+.landing-hero h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.hero-tagline {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 2rem;
+}
+
+.hero-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.btn-hero-primary {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 50px;
+    background: white;
+    color: #7c3aed;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-hero-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.btn-hero-secondary {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50px;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.btn-hero-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: white;
+}
+
+/* --- Features Section --- */
+.landing-features {
+    padding: 4rem 1.5rem;
+    background: var(--bg-color, #f8fafc);
+}
+
+.landing-features h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-color, #1e293b);
+    margin-bottom: 2.5rem;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.feature-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.feature-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 1rem;
+    background: linear-gradient(135deg, #7c3aed, #4f46e5);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.feature-card h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-color, #1e293b);
+}
+
+.feature-card p {
+    font-size: 0.9rem;
+    color: var(--text-light, #64748b);
+    line-height: 1.5;
+}
+
+/* --- Auth Section --- */
+.landing-auth {
+    padding: 4rem 1.5rem;
+    background: linear-gradient(180deg, var(--bg-color, #f8fafc), #e2e8f0);
+    display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    padding: 1rem;
+    position: relative;
+    min-height: 500px;
 }
 
 .auth-box {
     width: 100%;
     max-width: 400px;
-    background-color: var(--bg-light);
+    background-color: white;
     padding: 2.5rem;
-    border-radius: 12px;
-    box-shadow: var(--shadow);
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
 .auth-title {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 700;
-    color: var(--primary-color);
+    color: var(--primary-color, #7c3aed);
     margin-bottom: 0.5rem;
 }
 
 .auth-subtitle {
-    color: var(--text-light);
+    color: var(--text-light, #64748b);
     margin-bottom: 2rem;
+    font-size: 0.95rem;
 }
 
 .auth-form input {
     width: 100%;
-    padding: 0.8rem 1rem;
+    padding: 0.9rem 1rem;
     margin-bottom: 1rem;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
     font-size: 1rem;
+    transition: border-color 0.2s;
 }
 
-.auth-form button {
+.auth-form input:focus {
+    outline: none;
+    border-color: var(--primary-color, #7c3aed);
+}
+
+.auth-form button[type="submit"] {
     width: 100%;
-    padding: 0.9rem;
+    padding: 1rem;
     border: none;
-    border-radius: 8px;
-    background-color: var(--primary-color);
+    border-radius: 12px;
+    background: linear-gradient(135deg, #7c3aed, #4f46e5);
     color: white;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.auth-form button:hover {
-    background-color: var(--primary-color-dark);
+.auth-form button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
 }
 
 .auth-toggle {
     margin-top: 1.5rem;
     font-size: 0.9rem;
+    color: var(--text-light, #64748b);
+}
+
+.auth-toggle a {
+    color: var(--primary-color, #7c3aed);
+    font-weight: 600;
 }
 
 .error-message {
-    color: var(--danger-color);
+    color: var(--danger-color, #ef4444);
     margin-top: 1rem;
     font-size: 0.9rem;
     min-height: 1.2rem;
 }
 
-.auth-footer {
-    margin-top: 2rem;
-    color: var(--text-light);
-    font-size: 0.9rem;
+/* --- Password Toggle --- */
+.password-wrapper {
+    position: relative !important;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.password-wrapper input {
+    width: 100%;
+    padding-right: 40px !important;
+    margin-bottom: 0;
+}
+
+.password-toggle {
+    position: absolute !important;
+    right: 10px !important;
+    top: 22px !important;
+    transform: translateY(-50%);
+    background: none !important;
+    border: none !important;
+    cursor: pointer;
+    color: #64748b;
+    padding: 5px;
+    width: 24px !important;
+    height: 24px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+    z-index: 10;
+    border-radius: 4px;
+}
+
+.password-toggle:hover {
+    color: var(--primary-color, #7c3aed);
+    background: rgba(124, 58, 237, 0.1) !important;
+    transform: translateY(-50%);
+    box-shadow: none !important;
+}
+
+.password-toggle i {
+    font-size: 14px;
+    line-height: 1;
+}
+
+/* --- Landing Footer --- */
+.landing-footer {
+    padding: 2rem;
+    text-align: center;
+    background: #1e293b;
+    color: #94a3b8;
+}
+
+.landing-footer p {
+    margin: 0.25rem 0;
+}
+
+.landing-footer strong {
+    color: #a78bfa;
+}
+
+.footer-version {
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+/* --- Mobile Adjustments --- */
+@media (max-width: 480px) {
+    .landing-hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero-tagline {
+        font-size: 1rem;
+    }
+
+    .hero-logo {
+        width: 80px;
+        height: 80px;
+    }
+
+    .landing-features h2 {
+        font-size: 1.5rem;
+    }
+
+    .auth-box {
+        padding: 1.5rem;
+    }
+}
+
+/* ===== ANIMAÇÕES SUAVES ===== */
+
+/* Scroll suave global */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Animação de entrada do hero */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 15px 50px rgba(124, 58, 237, 0.5);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Aplicando animações ao Hero */
+.hero-logo {
+    animation: fadeInScale 0.8s ease-out, float 3s ease-in-out infinite 1s, pulse 4s ease-in-out infinite;
+}
+
+.landing-hero h1 {
+    animation: fadeInUp 0.8s ease-out 0.2s backwards;
+}
+
+.hero-tagline {
+    animation: fadeInUp 0.8s ease-out 0.4s backwards;
+}
+
+.hero-buttons {
+    animation: fadeInUp 0.8s ease-out 0.6s backwards;
+}
+
+.btn-hero-primary {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-hero-primary:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.btn-hero-primary:active {
+    transform: translateY(-2px) scale(0.98);
+}
+
+.btn-hero-secondary {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-hero-secondary:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: white;
+    transform: scale(1.02);
+}
+
+/* Features com animação escalonada */
+.feature-card {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.feature-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.feature-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.feature-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.feature-card:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.feature-card:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+.feature-card:nth-child(6) {
+    animation-delay: 0.6s;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.feature-icon {
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover .feature-icon {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 5px 20px rgba(124, 58, 237, 0.4);
+}
+
+/* Auth Section Animation */
+.landing-auth {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.auth-box {
+    animation: fadeInScale 0.6s ease-out;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.auth-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+}
+
+.auth-form input {
+    transition: all 0.3s ease;
+}
+
+.auth-form input:focus {
+    transform: scale(1.01);
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.15);
+}
+
+.auth-form button {
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-form button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.auth-form button:active::before {
+    width: 300px;
+    height: 300px;
+}
+
+/* Landing Features Section */
+.landing-features h2 {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Footer animation */
+.landing-footer {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+/* Indicador de scroll */
+.landing-hero::after {
+    content: '';
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 50px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 25px;
+    animation: fadeInUp 1s ease-out 1s backwards;
+}
+
+.landing-hero::before {
+    content: '';
+    position: absolute;
+    bottom: 45px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 3px;
+    animation: scrollIndicator 2s ease-in-out infinite;
+}
+
+@keyframes scrollIndicator {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    50% {
+        opacity: 0.3;
+        transform: translateX(-50%) translateY(15px);
+    }
+}
+
+/* Position relative para o hero */
+.landing-hero {
+    position: relative;
 }

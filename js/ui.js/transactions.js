@@ -1,5 +1,5 @@
 import { formatCurrency, getBillingCycle } from './utils.js';
-import { openModal, closeModal, showMessage } from './ui.js';
+import { openModal, closeModal, showMessage, showToast } from './ui.js';
 import { saveTransaction, saveAccount, deleteAccount, deleteTransaction } from './firestore.js';
 import { db } from '../../firebase-config.js';
 
@@ -101,7 +101,7 @@ function openQuickAddModal() {
     const selector = document.getElementById('transaction-type-selector');
     if (selector) {
         const currentActive = selector.querySelector('.active');
-        if(currentActive) currentActive.classList.remove('active');
+        if (currentActive) currentActive.classList.remove('active');
         selector.querySelector('[data-value="despesa"]').classList.add('active');
     }
     document.getElementById('transaction-type').value = 'despesa';
@@ -129,19 +129,68 @@ async function handleTransactionFormSubmit(e) {
     e.preventDefault();
     const form = e.target;
     const id = form['transaction-id'].value;
+
+    // === VALIDAÇÃO ===
+    let hasErrors = false;
+
+    // Limpar erros anteriores
+    form.querySelectorAll('.form-group').forEach(g => g.classList.remove('error'));
+
+    // Validar descrição
+    const description = form['transaction-description'].value.trim();
+    if (!description) {
+        markFieldError(form['transaction-description'], 'Informe uma descrição');
+        hasErrors = true;
+    }
+
+    // Validar valor
+    const amount = parseFloat(form['transaction-amount'].value);
+    if (!amount || amount <= 0) {
+        markFieldError(form['transaction-amount'], 'Informe um valor válido');
+        hasErrors = true;
+    }
+
+    // Validar conta
+    const accountId = form['transaction-account'].value;
+    if (!accountId) {
+        markFieldError(form['transaction-account'], 'Selecione uma conta');
+        hasErrors = true;
+    }
+
+    // Validar categoria
+    const category = form['transaction-category'].value.trim();
+    if (!category) {
+        markFieldError(form['transaction-category'], 'Informe uma categoria');
+        hasErrors = true;
+    }
+
+    if (hasErrors) {
+        showToast('Campos obrigatórios', 'Preencha todos os campos destacados', 'warning');
+        return;
+    }
+
     const data = {
         userId: currentUser.uid,
         type: form['transaction-type'].value,
-        description: form['transaction-description'].value,
-        amount: parseFloat(form['transaction-amount'].value),
+        description: description,
+        amount: amount,
         date: firebase.firestore.Timestamp.fromDate(new Date(form['transaction-date'].value)),
-        accountId: form['transaction-account'].value,
-        category: form['transaction-category'].value,
-        isPaid: form['transaction-paid'].checked // Lendo o valor do checkbox
+        accountId: accountId,
+        category: category,
+        isPaid: form['transaction-paid'].checked
     };
 
     try {
         await saveTransaction(data, id);
+
+        // Toast de sucesso
+        const isEdit = !!id;
+        showToast(
+            isEdit ? 'Transação atualizada!' : 'Transação adicionada!',
+            `${data.type === 'receita' ? '+' : '-'} R$ ${amount.toFixed(2).replace('.', ',')} • ${category}`,
+            'success'
+        );
+
         if (e.submitter && e.submitter.id === 'save-and-new-btn') {
             openQuickAddModal();
         } else {
@@ -150,7 +199,23 @@ async function handleTransactionFormSubmit(e) {
         onUpdateCallback();
     } catch (error) {
         console.error("Erro ao salvar transação:", error);
-        showMessage('transaction-message', 'Não foi possível salvar a transação. Tente novamente.', 'error');
+        showToast('Erro ao salvar', 'Não foi possível salvar a transação. Tente novamente.', 'error');
+    }
+}
+
+// Função auxiliar para marcar campo com erro
+function markFieldError(input, message) {
+    const formGroup = input.closest('.form-group');
+    if (formGroup) {
+        formGroup.classList.add('error');
+        // Adiciona mensagem de erro se não existir
+        let errorText = formGroup.querySelector('.error-text');
+        if (!errorText) {
+            errorText = document.createElement('span');
+            errorText.className = 'error-text';
+            formGroup.appendChild(errorText);
+        }
+        errorText.textContent = message;
     }
 }
 
@@ -182,10 +247,10 @@ async function handleTransactionActions(e) {
             form['transaction-category'].value = transaction.category;
             form['transaction-paid'].checked = transaction.isPaid; // Define o estado do checkbox
             const typeSelector = document.getElementById('transaction-type-selector');
-            if(typeSelector) {
+            if (typeSelector) {
                 typeSelector.querySelector('.active').classList.remove('active');
                 const btnToActivate = typeSelector.querySelector(`[data-value="${transaction.type}"]`);
-                if(btnToActivate) btnToActivate.classList.add('active');
+                if (btnToActivate) btnToActivate.classList.add('active');
             }
             form['transaction-type'].value = transaction.type;
             form['transaction-account'].value = transaction.accountId;
@@ -267,7 +332,7 @@ async function handleAccountActions(e) {
             form['account-id'].value = acc.id;
             form['account-name'].value = acc.name;
             form['account-type'].value = acc.type;
-            
+
             toggleCreditCardFields(acc.type);
 
             if (acc.type === 'cartao_credito') {
@@ -385,7 +450,7 @@ export function loadPayablesData() {
         }
         // Sort transactions by date
         transactions.sort((a, b) => a.date.seconds - b.date.seconds);
-        
+
         transactions.forEach(t => {
             const li = document.createElement('li');
             li.className = 'payable-item';

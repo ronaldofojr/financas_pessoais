@@ -1,0 +1,486 @@
+/* ===== MASCOTES INTERATIVOS DA TELA DE LOGIN ===== */
+
+/* Container dos mascotes */
+.mascots-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+    overflow: hidden;
+}
+
+/* ===== MASCOTE BASE ===== */
+.mascot {
+    position: absolute;
+    transition: transform 0.3s ease;
+}
+
+/* ===== PORQUINHO (COFRINHO) ===== */
+.mascot-piggy {
+    left: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.piggy-body {
+    width: 120px;
+    height: 100px;
+    position: relative;
+}
+
+/* Corpo do porquinho */
+.piggy-body::before {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 80px;
+    background: linear-gradient(145deg, #ffb6c1, #ff91a4);
+    border-radius: 50px 50px 40px 40px;
+    top: 20px;
+    left: 10px;
+    box-shadow:
+        inset -5px -5px 15px rgba(0, 0, 0, 0.1),
+        inset 5px 5px 15px rgba(255, 255, 255, 0.3);
+}
+
+/* Orelhas */
+.piggy-ears {
+    position: absolute;
+    top: 5px;
+    left: 25px;
+    width: 70px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.piggy-ear {
+    width: 25px;
+    height: 30px;
+    background: linear-gradient(145deg, #ffb6c1, #ff91a4);
+    border-radius: 50% 50% 30% 30%;
+    transition: transform 0.3s ease;
+}
+
+.piggy-ear.left {
+    transform: rotate(-15deg);
+}
+
+.piggy-ear.right {
+    transform: rotate(15deg);
+}
+
+/* Orelhas levantadas (estado curioso) */
+.mascot-piggy.curious .piggy-ear.left {
+    transform: rotate(-30deg) translateY(-5px);
+}
+
+.mascot-piggy.curious .piggy-ear.right {
+    transform: rotate(30deg) translateY(-5px);
+}
+
+/* Focinho */
+.piggy-snout {
+    position: absolute;
+    width: 35px;
+    height: 25px;
+    background: #ff8fa3;
+    border-radius: 50%;
+    top: 55px;
+    left: 42px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+}
+
+.piggy-snout::before,
+.piggy-snout::after {
+    content: '';
+    width: 6px;
+    height: 8px;
+    background: #cc6b7a;
+    border-radius: 50%;
+}
+
+/* Container dos olhos */
+.piggy-eyes {
+    position: absolute;
+    top: 35px;
+    left: 30px;
+    width: 60px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Olho individual */
+.piggy-eye {
+    width: 22px;
+    height: 22px;
+    background: white;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Pupila */
+.piggy-pupil {
+    width: 10px;
+    height: 10px;
+    background: #333;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease-out;
+}
+
+/* Brilho do olho */
+.piggy-pupil::after {
+    content: '';
+    width: 4px;
+    height: 4px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+}
+
+/* Patinhas */
+.piggy-hands {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 120px;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+}
+
+.piggy-hand {
+    width: 20px;
+    height: 15px;
+    background: #ffb6c1;
+    border-radius: 10px 10px 5px 5px;
+    transition: transform 0.4s ease;
+    transform-origin: center top;
+}
+
+.piggy-hand.left {
+    transform: rotate(20deg);
+}
+
+.piggy-hand.right {
+    transform: rotate(-20deg);
+}
+
+/* Patinhas cobrindo os olhos */
+.mascot-piggy.shy .piggy-hand.left {
+    transform: rotate(20deg) translate(25px, -5px) scale(1.2);
+}
+
+.mascot-piggy.shy .piggy-hand.right {
+    transform: rotate(-20deg) translate(-25px, -5px) scale(1.2);
+}
+
+/* Estado espiando */
+.mascot-piggy.peeking .piggy-body {
+    animation: peek 0.5s ease infinite;
+}
+
+@keyframes peek {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(5px);
+    }
+}
+
+/* ===== MOEDINHA ===== */
+.mascot-coin {
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.coin-body {
+    width: 80px;
+    height: 80px;
+    position: relative;
+}
+
+/* Corpo da moeda */
+.coin-circle {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(145deg, #ffd700, #ffb800);
+    border-radius: 50%;
+    position: relative;
+    box-shadow:
+        inset -4px -4px 10px rgba(0, 0, 0, 0.2),
+        inset 4px 4px 10px rgba(255, 255, 255, 0.4),
+        0 4px 15px rgba(255, 215, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Símbolo $ */
+.coin-symbol {
+    font-size: 28px;
+    font-weight: 700;
+    color: #b8860b;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
+    position: absolute;
+    bottom: 8px;
+}
+
+/* Olhos da moeda */
+.coin-eyes {
+    position: absolute;
+    top: 18px;
+    left: 15px;
+    width: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.coin-eye {
+    width: 18px;
+    height: 18px;
+    background: white;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+.coin-pupil {
+    width: 8px;
+    height: 8px;
+    background: #333;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease-out;
+}
+
+.coin-pupil::after {
+    content: '';
+    width: 3px;
+    height: 3px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+}
+
+/* Mãozinhas da moeda */
+.coin-hands {
+    position: absolute;
+    top: 25px;
+    left: -10px;
+    width: 100px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.coin-hand {
+    width: 18px;
+    height: 12px;
+    background: #ffd700;
+    border-radius: 8px;
+    transition: transform 0.4s ease;
+    box-shadow: inset -2px -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.coin-hand.left {
+    transform: rotate(30deg);
+}
+
+.coin-hand.right {
+    transform: rotate(-30deg);
+}
+
+/* Estado tímido - cobrindo olhos */
+.mascot-coin.shy .coin-hand.left {
+    transform: rotate(30deg) translate(20px, -8px) scale(1.3);
+}
+
+.mascot-coin.shy .coin-hand.right {
+    transform: rotate(-30deg) translate(-20px, -8px) scale(1.3);
+}
+
+/* Moeda curiosa */
+.mascot-coin.curious .coin-body {
+    animation: bounce 0.6s ease infinite;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+/* Moeda espiando */
+.mascot-coin.peeking {
+    animation: peekCoin 0.5s ease infinite;
+}
+
+@keyframes peekCoin {
+
+    0%,
+    100% {
+        transform: translateY(-50%) translateX(0);
+    }
+
+    50% {
+        transform: translateY(-50%) translateX(-8px);
+    }
+}
+
+/* ===== ANIMAÇÕES DOS OLHOS ===== */
+
+/* Piscar */
+@keyframes blink {
+
+    0%,
+    45%,
+    55%,
+    100% {
+        transform: scaleY(1);
+    }
+
+    50% {
+        transform: scaleY(0.1);
+    }
+}
+
+.piggy-eye,
+.coin-eye {
+    animation: blink 4s ease infinite;
+}
+
+.mascot-piggy .piggy-eye {
+    animation-delay: 0.5s;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 1200px) {
+    .mascot-piggy {
+        left: 2%;
+        transform: translateY(-50%) scale(0.9);
+    }
+
+    .mascot-coin {
+        right: 2%;
+        transform: translateY(-50%) scale(0.9);
+    }
+}
+
+@media (max-width: 900px) {
+    .mascots-container {
+        position: relative;
+        height: auto;
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        padding: 20px 0;
+        margin-bottom: -30px;
+    }
+
+    .mascot-piggy,
+    .mascot-coin {
+        position: relative;
+        left: auto;
+        right: auto;
+        top: auto;
+        transform: scale(0.85);
+    }
+}
+
+@media (max-width: 480px) {
+
+    .mascot-piggy,
+    .mascot-coin {
+        transform: scale(0.7);
+    }
+
+    .mascots-container {
+        gap: 20px;
+    }
+}
+
+/* ===== ANIMAÇÃO DE ENTRADA ===== */
+.mascot-piggy {
+    animation: slideInFromLeft 0.8s ease-out 0.5s backwards;
+}
+
+.mascot-coin {
+    animation: slideInFromRight 0.8s ease-out 0.7s backwards;
+}
+
+@keyframes slideInFromLeft {
+    from {
+        opacity: 0;
+        transform: translateY(-50%) translateX(-50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0);
+    }
+}
+
+@keyframes slideInFromRight {
+    from {
+        opacity: 0;
+        transform: translateY(-50%) translateX(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0);
+    }
+}
+
+/* Mobile - ajuste da animação de entrada */
+@media (max-width: 900px) {
+    .mascot-piggy {
+        animation: fadeInUp 0.6s ease-out 0.5s backwards;
+    }
+
+    .mascot-coin {
+        animation: fadeInUp 0.6s ease-out 0.7s backwards;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: scale(0.85) translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: scale(0.85) translateY(0);
+        }
+    }
+}

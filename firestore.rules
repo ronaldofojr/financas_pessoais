@@ -1,0 +1,60 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // --- Funções Auxiliares ---
+    function isOwner(userId) {
+      return request.auth != null && request.auth.uid == userId;
+    }
+    
+    function isAdmin() {
+      // Verifica se o email do usuário logado está na lista de admins permitidos
+      return request.auth != null && request.auth.token.email == 'joaopedro.torres@ymail.com';
+    }
+
+    // --- Regras por Coleção ---
+
+    // Usuário só pode mexer no seu próprio perfil. Admin pode ler qualquer perfil.
+    match /users/{userId} {
+      allow read: if isOwner(userId) || isAdmin();
+      allow write: if isOwner(userId) || isAdmin();
+    }
+
+    match /transactions/{docId} {
+      allow read, write, delete: if isOwner(resource.data.userId) || isAdmin();
+      allow create: if isOwner(request.resource.data.userId) || isAdmin();
+    }
+    
+    match /accounts/{docId} {
+      allow read, write, delete: if isOwner(resource.data.userId) || isAdmin();
+      allow create: if isOwner(request.resource.data.userId) || isAdmin();
+    }
+    
+    match /budgets/{docId} {
+      allow read, write, delete: if isOwner(resource.data.userId) || isAdmin();
+      allow create: if isOwner(request.resource.data.userId) || isAdmin();
+    }
+    
+    match /goals/{docId} {
+      allow read, write, delete: if isOwner(resource.data.userId) || isAdmin();
+      allow create: if isOwner(request.resource.data.userId) || isAdmin();
+    }
+
+    // Regra para Feedbacks (Coleção 'feedbacks' no plural conforme app)
+    match /feedbacks/{docId} {
+      allow create: if request.auth != null;
+      allow read, update, delete: if isAdmin();
+    }
+    
+    // Regra de fallback para 'feedback' (singular) caso exista
+    match /feedback/{docId} {
+      allow create: if request.auth != null;
+      allow read, update, delete: if isAdmin();
+    }
+
+    // Logs de Auditoria do Admin - Apenas admin pode ler/escrever
+    match /admin_logs/{docId} {
+      allow read, write: if isAdmin();
+    }
+  }
+}

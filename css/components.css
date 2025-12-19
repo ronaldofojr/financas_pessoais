@@ -30,6 +30,7 @@
     font-weight: 500;
     transition: background-color 0.3s ease;
 }
+
 .btn-primary:hover {
     background-color: var(--primary-color-dark);
 }
@@ -44,6 +45,7 @@
     font-size: 0.9rem;
     transition: background-color 0.3s ease;
 }
+
 .btn-secondary:hover {
     background-color: var(--bg-color);
 }
@@ -61,6 +63,7 @@
     padding: 3rem;
     color: var(--text-light);
 }
+
 .empty-state-small {
     font-size: 0.9rem;
     color: var(--text-light);
@@ -77,10 +80,13 @@
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Alinha no topo */
-    overflow-y: auto; /* Permite rolagem */
+    align-items: flex-start;
+    /* Alinha no topo */
+    overflow-y: auto;
+    /* Permite rolagem */
     z-index: 1000;
-    padding: 2rem 0; /* Espaçamento para não colar nas bordas */
+    padding: 2rem 0;
+    /* Espaçamento para não colar nas bordas */
     animation: fadeIn 0.3s;
 }
 
@@ -91,7 +97,7 @@
     width: 90%;
     max-width: 500px;
     position: relative;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
 .modal-close-btn {
@@ -105,7 +111,11 @@
     color: var(--text-light);
 }
 
-#transaction-modal-title, #account-modal-title, #budget-modal-title, #goal-modal-title, #payment-modal-title {
+#transaction-modal-title,
+#account-modal-title,
+#budget-modal-title,
+#goal-modal-title,
+#payment-modal-title {
     margin-bottom: 1.5rem;
     font-size: 1.5rem;
 }
@@ -121,7 +131,8 @@
     font-size: 0.9rem;
 }
 
-.form-group input, .form-group select {
+.form-group input,
+.form-group select {
     width: 100%;
     padding: 0.7rem;
     border: 1px solid var(--border-color);
@@ -142,6 +153,7 @@
     display: flex;
     align-items: center;
 }
+
 .form-group-checkbox input {
     width: auto;
     margin-right: 0.5rem;
@@ -434,7 +446,8 @@
 .transaction-actions {
     display: flex;
     align-items: center;
-    gap: 0.25rem; /* Espaçamento entre os botões */
+    gap: 0.25rem;
+    /* Espaçamento entre os botões */
 }
 
 .btn-action {
@@ -499,7 +512,7 @@
 }
 
 /* Ajuste para telas menores */
- @media (max-width: 768px) {
+@media (max-width: 768px) {
     .fab {
         bottom: 1.5rem;
         right: 1.5rem;
@@ -570,7 +583,179 @@
     margin-top: 1.5rem;
 }
 
-.form-actions .btn-primary, .form-actions .btn-secondary {
+.form-actions .btn-primary,
+.form-actions .btn-secondary {
     width: 100%;
     padding: 0.9rem;
+}
+
+/* ===== TOAST NOTIFICATIONS ===== */
+.toast-container {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    pointer-events: none;
+}
+
+.toast {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    border-radius: 12px;
+    background: white;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    min-width: 280px;
+    max-width: 400px;
+    pointer-events: all;
+    animation: toastSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: top right;
+}
+
+.toast.toast-exit {
+    animation: toastSlideOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes toastSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(100%) scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+@keyframes toastSlideOut {
+    from {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateX(100%) scale(0.8);
+    }
+}
+
+.toast-icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.toast-content {
+    flex: 1;
+}
+
+.toast-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 0.1rem;
+}
+
+.toast-message {
+    font-size: 0.85rem;
+    color: var(--text-light);
+}
+
+.toast-close {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
+    padding: 0.25rem;
+    font-size: 1rem;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.toast-close:hover {
+    opacity: 1;
+}
+
+/* Toast Types */
+.toast.success {
+    border-left: 4px solid var(--secondary-color);
+}
+
+.toast.success .toast-icon {
+    color: var(--secondary-color);
+}
+
+.toast.error {
+    border-left: 4px solid var(--danger-color);
+}
+
+.toast.error .toast-icon {
+    color: var(--danger-color);
+}
+
+.toast.warning {
+    border-left: 4px solid var(--warning-color);
+}
+
+.toast.warning .toast-icon {
+    color: var(--warning-color);
+}
+
+.toast.info {
+    border-left: 4px solid var(--info-color);
+}
+
+.toast.info .toast-icon {
+    color: var(--info-color);
+}
+
+/* ===== FORM VALIDATION ERRORS ===== */
+.form-group.error input,
+.form-group.error select {
+    border-color: var(--danger-color);
+    background-color: rgba(239, 68, 68, 0.05);
+}
+
+.form-group .error-text {
+    display: none;
+    color: var(--danger-color);
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+}
+
+.form-group.error .error-text {
+    display: block;
+    animation: shakeError 0.3s ease;
+}
+
+@keyframes shakeError {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    75% {
+        transform: translateX(5px);
+    }
+}
+
+/* Mobile Toast */
+@media (max-width: 480px) {
+    .toast-container {
+        left: 1rem;
+        right: 1rem;
+    }
+
+    .toast {
+        min-width: auto;
+        max-width: none;
+    }
 }

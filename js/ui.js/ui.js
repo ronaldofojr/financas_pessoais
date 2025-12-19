@@ -41,6 +41,56 @@ export function showMessage(elementId, message, type = 'info') {
 }
 
 /**
+ * Exibe uma notificação toast (popup) que desaparece automaticamente.
+ * @param {string} title - Título da notificação.
+ * @param {string} message - Mensagem da notificação.
+ * @param {string} type - Tipo: 'success', 'error', 'warning', 'info'.
+ * @param {number} duration - Duração em ms (padrão: 4000).
+ */
+export function showToast(title, message, type = 'success', duration = 4000) {
+    const container = document.getElementById('toast-container');
+    if (!container) return;
+
+    const icons = {
+        success: 'fas fa-check-circle',
+        error: 'fas fa-times-circle',
+        warning: 'fas fa-exclamation-triangle',
+        info: 'fas fa-info-circle'
+    };
+
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.innerHTML = `
+        <i class="toast-icon ${icons[type] || icons.info}"></i>
+        <div class="toast-content">
+            <div class="toast-title">${title}</div>
+            <div class="toast-message">${message}</div>
+        </div>
+        <button class="toast-close"><i class="fas fa-times"></i></button>
+    `;
+
+    // Botão de fechar
+    toast.querySelector('.toast-close').addEventListener('click', () => {
+        removeToast(toast);
+    });
+
+    container.appendChild(toast);
+
+    // Auto-remove após duration
+    setTimeout(() => {
+        removeToast(toast);
+    }, duration);
+}
+
+function removeToast(toast) {
+    if (!toast || toast.classList.contains('toast-exit')) return;
+    toast.classList.add('toast-exit');
+    setTimeout(() => {
+        toast.remove();
+    }, 300);
+}
+
+/**
  * Prepara os formulários de login e registro.
  * Esta função é chamada quando nenhum usuário está logado.
  */
@@ -60,10 +110,10 @@ export function initAuthForms() {
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             if (authError) authError.textContent = '';
-            
+
             const email = loginForm['login-email'].value;
             const password = loginForm['login-password'].value;
-            
+
             try {
                 await handleLogin(email, password);
                 // O onAuthStateChanged em main.js cuidará da transição de tela.
@@ -78,19 +128,19 @@ export function initAuthForms() {
         registerForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             if (authError) authError.textContent = '';
-            
+
             const name = registerForm['register-name'].value;
             const email = registerForm['register-email'].value;
             const password = registerForm['register-password'].value;
             const confirmPassword = registerForm['register-confirm-password'].value;
-            
+
             try {
                 await handleRegister(name, email, password, confirmPassword);
                 // O onAuthStateChanged em main.js cuidará da transição de tela.
             } catch (error) {
                 if (authError) {
-                    authError.textContent = error.message.includes('senhas') 
-                        ? error.message 
+                    authError.textContent = error.message.includes('senhas')
+                        ? error.message
                         : getAuthErrorMessage(error.code);
                 }
             }
@@ -135,7 +185,8 @@ export function initUI(user, loaderCallback) {
     setupNavigation();
     setupModalClosers();
     setupTour();
-    
+    setupLogout(); // CORREÇÃO: Adiciona listener do botão de logout
+
     // Verifica se o usuário é admin para mostrar o link do painel
     const adminPanelLink = document.getElementById('admin-panel-link');
     if (adminPanelLink && user && ADMIN_EMAILS.includes(user.email)) {
@@ -185,6 +236,26 @@ export function navigateTo(pageId) {
         link.classList.toggle('active', link.getAttribute('data-page') === pageId);
     });
 
+    // CORREÇÃO: Atualiza o título do header com o nome da página atual
+    const pageTitles = {
+        'dashboard': 'Dashboard',
+        'transactions': 'Transações',
+        'accounts': 'Contas',
+        'cards': 'Cartões',
+        'budgets': 'Orçamentos',
+        'goals': 'Objetivos',
+        'reports': 'Relatórios',
+        'tools': 'Ferramentas',
+        'feedback': 'Feedback',
+        'profile': 'Perfil',
+        'support': 'Apoie o Projeto',
+        'payables': 'Contas a Pagar'
+    };
+    const headerTitle = document.getElementById('current-page-title');
+    if (headerTitle) {
+        headerTitle.textContent = pageTitles[pageId] || 'Full Finanças';
+    }
+
     // Salva a última página visitada
     localStorage.setItem('lastVisitedPage', pageId);
 
@@ -210,7 +281,7 @@ export function navigateTo(pageId) {
  * Usa funções explícitas de abrir/fechar em vez de 'toggle' para evitar inconsistências de estado.
  */
 function setupMobileMenu() {
-    const menuToggle = document.getElementById('menu-toggle');
+    const menuToggle = document.getElementById('menu-toggle-btn'); // CORREÇÃO: ID correto
 
     const openMenu = () => {
         if (sidebar) sidebar.classList.add('open');
@@ -276,4 +347,23 @@ function setupModalClosers() {
 function setupTour() {
     // Lógica do tour (se houver) pode ser mantida ou adicionada aqui.
     // Exemplo: verificar se o usuário precisa ver o tour e iniciá-lo.
+}
+
+/**
+ * CORREÇÃO: Configura o botão de logout
+ */
+function setupLogout() {
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+            if (confirm('Tem certeza que deseja sair?')) {
+                firebase.auth().signOut().then(() => {
+                    console.log('Logout realizado com sucesso');
+                }).catch(error => {
+                    console.error('Erro ao fazer logout:', error);
+                    alert('Erro ao sair. Tente novamente.');
+                });
+            }
+        });
+    }
 }

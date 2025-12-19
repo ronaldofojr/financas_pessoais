@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Full Finanças - Controle Financeiro Completo</title>
-    
+
     <!-- Favicon -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💰</text></svg>">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💰</text></svg>">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
@@ -30,6 +33,7 @@
     <link rel="stylesheet" href="css/pages/support.css">
     <link rel="stylesheet" href="css/pages/feedback.css">
     <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/mascots.css">
 
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
@@ -47,7 +51,11 @@
     <!-- SheetJS (XLSX) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
+
 <body>
+
+    <!-- Toast Container para Notificações -->
+    <div id="toast-container" class="toast-container"></div>
 
     <!-- Tela de Carregamento -->
     <div id="loader" class="loader-container">
@@ -57,32 +65,101 @@
     <!-- Container da Aplicação -->
     <div id="app" class="app-container hidden">
 
-        <!-- Tela de Login / Registro -->
+        <!-- Landing Page / Tela de Login -->
         <div id="auth-container" class="auth-container">
-            <div class="auth-box">
-                <h1 class="auth-title">❤ Full Finanças</h1>
-                <p class="auth-subtitle">Controle suas finanças, conquiste seus sonhos.</p>
-                
-                <!-- Formulário de Login -->
-                <form id="login-form" class="auth-form">
-                    <input type="email" id="login-email" placeholder="Email" required>
-                    <input type="password" id="login-password" placeholder="Senha" required>
-                    <button type="submit">Entrar</button>
-                    <p class="auth-toggle">Não tem uma conta? <a href="#" id="show-register">Registre-se</a></p>
-                </form>
 
-                <!-- Formulário de Registro -->
-                <form id="register-form" class="auth-form hidden">
-                    <input type="text" id="register-name" placeholder="Nome Completo" required>
-                    <input type="email" id="register-email" placeholder="Email" required>
-                                        <input type="password" id="register-password" placeholder="Senha (mín. 6 caracteres)" required>
-                    <input type="password" id="register-confirm-password" placeholder="Confirme sua Senha" required>
-                    <button type="submit">Criar Conta</button>
-                    <p class="auth-toggle">Já tem uma conta? <a href="#" id="show-login">Faça Login</a></p>
-                </form>
-                <p id="auth-error" class="error-message"></p>
-            </div>
-             <footer class="auth-footer">Criado by Jotta💜</footer>
+            <!-- Hero Section -->
+            <section class="landing-hero">
+                <div class="hero-content">
+                    <img src="./assets/logo.png" alt="Full Finanças" class="hero-logo">
+                    <h1>Full Finanças</h1>
+                    <p class="hero-tagline">Controle total das suas finanças em um só lugar!</p>
+                    <div class="hero-buttons">
+                        <button class="btn-hero-primary" onclick="smoothScrollTo('auth-section')">
+                            Começar Agora <i class="fas fa-arrow-right"></i>
+                        </button>
+                        <button class="btn-hero-secondary" onclick="smoothScrollTo('features-section')">
+                            Ver Recursos
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section id="features-section" class="landing-features">
+                <h2>Por que usar Full Finanças?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-chart-pie"></i></div>
+                        <h3>Dashboard Intuitivo</h3>
+                        <p>Visualize seu saldo, receitas e despesas em um único lugar com gráficos claros.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-wallet"></i></div>
+                        <h3>Múltiplas Contas</h3>
+                        <p>Gerencie várias contas bancárias, carteiras e cartões em um só app.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-bullseye"></i></div>
+                        <h3>Orçamentos & Metas</h3>
+                        <p>Defina limites de gastos por categoria e acompanhe seus objetivos financeiros.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+                        <h3>Relatórios Detalhados</h3>
+                        <p>Exporte relatórios em PDF e Excel para ter controle completo.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
+                        <h3>100% Responsivo</h3>
+                        <p>Use no celular, tablet ou computador com a mesma experiência.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-lock"></i></div>
+                        <h3>Seguro & Privado</h3>
+                        <p>Seus dados são protegidos com a segurança do Firebase/Google.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Auth Section -->
+            <section id="auth-section" class="landing-auth">
+                <div class="auth-box">
+                    <h2 class="auth-title">💜 Entre na sua conta</h2>
+                    <p class="auth-subtitle">Ou crie uma conta gratuitamente!</p>
+
+                    <!-- Formulário de Login -->
+                    <form id="login-form" class="auth-form">
+                        <input type="email" id="login-email" placeholder="Email" required>
+                        <div class="password-wrapper">
+                            <input type="password" id="login-password" placeholder="Senha" required>
+                            <button type="button" id="password-toggle" class="password-toggle"
+                                title="Mostrar/ocultar senha">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <button type="submit">Entrar</button>
+                        <p class="auth-toggle">Não tem uma conta? <a href="#" id="show-register">Registre-se</a></p>
+                    </form>
+
+                    <!-- Formulário de Registro -->
+                    <form id="register-form" class="auth-form hidden">
+                        <input type="text" id="register-name" placeholder="Nome Completo" required>
+                        <input type="email" id="register-email" placeholder="Email" required>
+                        <input type="password" id="register-password" placeholder="Senha (mín. 6 caracteres)" required>
+                        <input type="password" id="register-confirm-password" placeholder="Confirme sua Senha" required>
+                        <button type="submit">Criar Conta Grátis</button>
+                        <p class="auth-toggle">Já tem uma conta? <a href="#" id="show-login">Faça Login</a></p>
+                    </form>
+                    <p id="auth-error" class="error-message"></p>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="landing-footer">
+                <p>Criado com 💜 por <strong>Jotta</strong></p>
+                <p class="footer-version">Full Finanças v1.0</p>
+            </footer>
         </div>
 
         <!-- Conteúdo Principal (Pós-login) -->
@@ -94,18 +171,27 @@
                     <h2 class="sidebar-title">Full Finanças</h2>
                 </div>
                 <ul class="sidebar-menu">
-                    <li><a href="#" class="nav-link active" data-page="dashboard"><i class="fas fa-chart-pie"></i> Dashboard</a></li>
-                    <li><a href="#" class="nav-link" data-page="transactions"><i class="fas fa-exchange-alt"></i> Transações</a></li>
+                    <li><a href="#" class="nav-link active" data-page="dashboard"><i class="fas fa-chart-pie"></i>
+                            Dashboard</a></li>
+                    <li><a href="#" class="nav-link" data-page="transactions"><i class="fas fa-exchange-alt"></i>
+                            Transações</a></li>
                     <li><a href="#" class="nav-link" data-page="accounts"><i class="fas fa-wallet"></i> Contas</a></li>
-                    <li><a href="#" class="nav-link" data-page="cards"><i class="fas fa-credit-card"></i> Cartões</a></li>
-                    <li><a href="#" class="nav-link" data-page="budgets"><i class="fas fa-bullseye"></i> Orçamentos</a></li>
-                    <li><a href="#" class="nav-link" data-page="goals"><i class="fas fa-flag-checkered"></i> Objetivos</a></li>
-                    <li><a href="#" class="nav-link" data-page="reports"><i class="fas fa-chart-bar"></i> Relatórios</a></li>
+                    <li><a href="#" class="nav-link" data-page="cards"><i class="fas fa-credit-card"></i> Cartões</a>
+                    </li>
+                    <li><a href="#" class="nav-link" data-page="budgets"><i class="fas fa-bullseye"></i> Orçamentos</a>
+                    </li>
+                    <li><a href="#" class="nav-link" data-page="goals"><i class="fas fa-flag-checkered"></i>
+                            Objetivos</a></li>
+                    <li><a href="#" class="nav-link" data-page="reports"><i class="fas fa-chart-bar"></i> Relatórios</a>
+                    </li>
                     <li><a href="#" class="nav-link" data-page="tools"><i class="fas fa-tools"></i> Ferramentas</a></li>
-                    <li><a href="#" class="nav-link" data-page="feedback"><i class="fas fa-comment-dots"></i> Relatar Problema</a></li>
+                    <li><a href="#" class="nav-link" data-page="feedback"><i class="fas fa-comment-dots"></i> Relatar
+                            Problema</a></li>
                     <li><a href="#" class="nav-link" data-page="profile"><i class="fas fa-user-cog"></i> Perfil</a></li>
-                    <li><a href="#" class="nav-link" data-page="support"><i class="fas fa-heart"></i> Apoie o Projeto</a></li>
-                    <li><a href="#" class="nav-link" data-page="payables"><i class="fas fa-calendar-alt"></i> Contas a Pagar</a></li>
+                    <li><a href="#" class="nav-link" data-page="support"><i class="fas fa-heart"></i> Apoie o
+                            Projeto</a></li>
+                    <li><a href="#" class="nav-link" data-page="payables"><i class="fas fa-calendar-alt"></i> Contas a
+                            Pagar</a></li>
                 </ul>
                 <div class="sidebar-footer">
                     <a href="./admin/" id="admin-panel-link" class="btn-admin hidden">
@@ -113,7 +199,9 @@
                     </a>
                     <div id="user-info" class="user-info">
                         <div class="user-photo">
-                            <img id="sidebar-user-photo" src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23e2e8f0'/><text x='50' y='55' text-anchor='middle' font-size='30' fill='%2394a3b8'>👤</text></svg>" alt="Foto do Usuário">
+                            <img id="sidebar-user-photo"
+                                src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23e2e8f0'/><text x='50' y='55' text-anchor='middle' font-size='30' fill='%2394a3b8'>👤</text></svg>"
+                                alt="Foto do Usuário">
                         </div>
                         <span id="user-name-display"></span>
                     </div>
@@ -127,21 +215,56 @@
                 <button id="quick-add-transaction-btn" class="fab">
                     <i class="fas fa-plus"></i>
                 </button>
-                <header class="page-header">
-                     <h1>❤ Full finanças: Controle Total das Suas Finanças em um Só Lugar!</h1>
-                     <p>Criado by Jotta💜</p>
+
+                <!-- Header Mobile-Friendly -->
+                <header class="app-header">
+                    <div class="header-left">
+                        <img src="./assets/logo.png" alt="Full Finanças" class="header-logo">
+                        <span id="current-page-title">Dashboard</span>
+                    </div>
+                    <div class="header-right">
+                        <button class="header-btn" id="notifications-btn" title="Notificações">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge hidden">0</span>
+                        </button>
+                    </div>
                 </header>
-                
+
                 <!-- Seção do Dashboard -->
                 <section id="dashboard-page" class="page active">
                     <!-- Cards de Resumo -->
                     <div class="summary-cards">
-                        <div class="card"><div class="card-icon"><i class="fas fa-balance-scale"></i></div><div class="card-content"><h3>Saldo Total</h3><p id="total-balance">R$ 0,00</p></div></div>
-                        <div class="card"><div class="card-icon income"><i class="fas fa-arrow-up"></i></div><div class="card-content"><h3>Receitas do Mês</h3><p id="monthly-income">R$ 0,00</p></div></div>
-                        <div class="card"><div class="card-icon expense"><i class="fas fa-arrow-down"></i></div><div class="card-content"><h3>Despesas do Mês</h3><p id="monthly-expenses">R$ 0,00</p></div></div>
-                        <div class="card"><div class="card-icon savings"><i class="fas fa-piggy-bank"></i></div><div class="card-content"><h3>Economia do Mês</h3><p id="monthly-savings">R$ 0,00</p></div></div>
+                        <div class="card">
+                            <div class="card-icon"><i class="fas fa-balance-scale"></i></div>
+                            <div class="card-content">
+                                <h3>Saldo Total</h3>
+                                <p id="total-balance">R$ 0,00</p>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon income"><i class="fas fa-arrow-up"></i></div>
+                            <div class="card-content">
+                                <h3>Receitas do Mês</h3>
+                                <p id="monthly-income">R$ 0,00</p>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon expense"><i class="fas fa-arrow-down"></i></div>
+                            <div class="card-content">
+                                <h3>Despesas do Mês</h3>
+                                <p id="monthly-expenses">R$ 0,00</p>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon savings"><i class="fas fa-piggy-bank"></i></div>
+                            <div class="card-content">
+                                <h3>Economia do Mês</h3>
+                                <p id="monthly-savings">R$ 0,00</p>
+                            </div>
+                        </div>
                         <div class="card" id="payables-alert-card">
-                            <div class="card-icon" style="background: var(--warning-color, #f59e0b);"><i class="fas fa-exclamation-circle"></i></div>
+                            <div class="card-icon" style="background: var(--warning-color, #f59e0b);"><i
+                                    class="fas fa-exclamation-circle"></i></div>
                             <div class="card-content">
                                 <h3>Próximos Vencimentos</h3>
                                 <ul id="payables-alert-list" class="payables-alert-list"></ul>
@@ -169,7 +292,7 @@
                                 <!-- Faturas serão inseridas via JS -->
                             </ul>
                         </div>
-                         <div class="list-container">
+                        <div class="list-container">
                             <h3>Orçamentos do Mês</h3>
                             <div id="budgets-overview-list">
                                 <!-- Orçamentos serão inseridos via JS -->
@@ -186,10 +309,13 @@
                 <section id="transactions-page" class="page hidden">
                     <h2>Extrato de Transações</h2>
                     <div class="actions-bar">
-                        <button id="add-transaction-btn" class="btn-primary"><i class="fas fa-plus"></i> Nova Transação</button>
+                        <button id="add-transaction-btn" class="btn-primary"><i class="fas fa-plus"></i> Nova
+                            Transação</button>
                         <div class="export-buttons">
-                            <button id="export-excel-btn" class="btn-secondary"><i class="fas fa-file-excel"></i> Exportar para Excel (.xlsx)</button>
-                            <button id="export-pdf-btn" class="btn-secondary"><i class="fas fa-file-pdf"></i> Exportar para PDF</button>
+                            <button id="export-excel-btn" class="btn-secondary"><i class="fas fa-file-excel"></i>
+                                Exportar para Excel (.xlsx)</button>
+                            <button id="export-pdf-btn" class="btn-secondary"><i class="fas fa-file-pdf"></i> Exportar
+                                para PDF</button>
                         </div>
                     </div>
                     <div class="table-container">
@@ -211,7 +337,7 @@
                         </table>
                     </div>
                 </section>
-                
+
                 <!-- Seção de Contas -->
                 <section id="accounts-page" class="page hidden">
                     <h2>Gestão de Contas</h2>
@@ -237,8 +363,9 @@
                 <!-- Seção de Orçamentos -->
                 <section id="budgets-page" class="page hidden">
                     <h2>Orçamentos Mensais</h2>
-                     <div class="actions-bar">
-                        <button id="add-budget-btn" class="btn-primary"><i class="fas fa-plus"></i> Novo Orçamento</button>
+                    <div class="actions-bar">
+                        <button id="add-budget-btn" class="btn-primary"><i class="fas fa-plus"></i> Novo
+                            Orçamento</button>
                     </div>
                     <div id="budgets-list" class="budgets-grid">
                         <!-- Cards de orçamento serão inseridos aqui via JS -->
@@ -248,7 +375,7 @@
                 <!-- Seção de Objetivos -->
                 <section id="goals-page" class="page hidden">
                     <h2>Meus Objetivos</h2>
-                     <div class="actions-bar">
+                    <div class="actions-bar">
                         <button id="add-goal-btn" class="btn-primary"><i class="fas fa-plus"></i> Novo Objetivo</button>
                     </div>
                     <div id="goals-list" class="goals-grid">
@@ -258,7 +385,7 @@
 
                 <section id="reports-page" class="page hidden">
                     <h2>Relatórios e Gráficos</h2>
-                    
+
                     <!-- Filtros de Período -->
                     <div class="reports-filters">
                         <label for="period-filter">Período:</label>
@@ -270,7 +397,7 @@
                             <option value="last-6-months">Últimos 6 Meses</option>
                         </select>
                     </div>
-                    
+
                     <!-- Área do Gráfico -->
                     <div class="reports-chart-container">
                         <h3>Despesas por Categoria</h3>
@@ -278,7 +405,7 @@
                             <canvas id="reports-chart"></canvas>
                         </div>
                     </div>
-                    
+
                     <!-- Projeção de Fluxo de Caixa -->
                     <div class="reports-chart-container" id="cashflow-projection-card">
                         <h3>Projeção de Fluxo de Caixa</h3>
@@ -294,7 +421,7 @@
                             <canvas id="cashflow-projection-chart"></canvas>
                         </div>
                     </div>
-                    
+
                     <!-- Área da Tabela de Resumo -->
                     <div class="reports-summary">
                         <h3>Resumo de Gastos</h3>
@@ -316,40 +443,45 @@
                 </section>
                 <section id="tools-page" class="page hidden">
                     <h2>Ferramentas Financeiras</h2>
-                    
+
                     <!-- Calculadora de Juros Compostos -->
                     <div class="tools-card">
                         <h3><i class="fas fa-calculator"></i> Calculadora de Juros Compostos</h3>
-                        <p class="tools-description">Calcule o crescimento do seu investimento com juros compostos e aportes mensais.</p>
-                        
+                        <p class="tools-description">Calcule o crescimento do seu investimento com juros compostos e
+                            aportes mensais.</p>
+
                         <form id="compound-interest-form" class="calculator-form">
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="initial-amount">Valor Inicial (R$)</label>
-                                    <input type="number" id="initial-amount" step="0.01" min="0" placeholder="0,00" required>
+                                    <input type="number" id="initial-amount" step="0.01" min="0" placeholder="0,00"
+                                        required>
                                 </div>
                                 <div class="form-group">
                                     <label for="monthly-contribution">Aporte Mensal (R$)</label>
-                                    <input type="number" id="monthly-contribution" step="0.01" min="0" placeholder="0,00" required>
+                                    <input type="number" id="monthly-contribution" step="0.01" min="0"
+                                        placeholder="0,00" required>
                                 </div>
                             </div>
-                            
+
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="interest-rate">Taxa de Juros (% ao ano)</label>
-                                    <input type="number" id="interest-rate" step="0.01" min="0" max="100" placeholder="0,00" required>
+                                    <input type="number" id="interest-rate" step="0.01" min="0" max="100"
+                                        placeholder="0,00" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="period-years">Período (em anos)</label>
-                                    <input type="number" id="period-years" step="0.1" min="0.1" max="100" placeholder="0" required>
+                                    <input type="number" id="period-years" step="0.1" min="0.1" max="100"
+                                        placeholder="0" required>
                                 </div>
                             </div>
-                            
+
                             <button type="submit" class="btn-primary calculator-btn">
                                 <i class="fas fa-calculator"></i> Calcular
                             </button>
                         </form>
-                        
+
                         <div id="calculator-results" class="calculator-results hidden">
                             <h4>Resultados do Investimento</h4>
                             <div class="results-grid">
@@ -371,12 +503,15 @@
                     <!-- Conciliação Bancária -->
                     <div class="tools-card" id="bank-reconciliation-card">
                         <h3><i class="fas fa-file-csv"></i> Conciliação Bancária</h3>
-                        <p class="tools-description">Faça upload do extrato bancário (.csv) e compare com suas transações já lançadas.</p>
+                        <p class="tools-description">Faça upload do extrato bancário (.csv) e compare com suas
+                            transações já lançadas.</p>
                         <div class="reconciliation-upload-area">
                             <input type="file" id="reconciliation-csv-input" accept=".csv" class="hidden">
-                            <label for="reconciliation-csv-input" class="btn-secondary reconciliation-upload-label"><i class="fas fa-upload"></i> Selecionar Extrato CSV</label>
+                            <label for="reconciliation-csv-input" class="btn-secondary reconciliation-upload-label"><i
+                                    class="fas fa-upload"></i> Selecionar Extrato CSV</label>
                             <span id="reconciliation-file-name" class="file-name"></span>
-                            <button id="reconciliation-process-btn" class="btn-primary" disabled><i class="fas fa-search"></i> Processar Extrato</button>
+                            <button id="reconciliation-process-btn" class="btn-primary" disabled><i
+                                    class="fas fa-search"></i> Processar Extrato</button>
                         </div>
                         <div id="reconciliation-results" class="reconciliation-results hidden">
                             <div class="reconciliation-section">
@@ -394,7 +529,7 @@
                 <!-- Seção de Perfil do Usuário -->
                 <section id="profile-page" class="page hidden">
                     <h2><i class="fas fa-user-cog"></i> Meu Perfil</h2>
-                    
+
                     <!-- Seção de Informações Pessoais -->
                     <div class="profile-section">
                         <h3><i class="fas fa-user"></i> Informações Pessoais</h3>
@@ -416,7 +551,7 @@
                             <div id="profile-message" class="profile-message hidden"></div>
                         </div>
                     </div>
-                    
+
                     <!-- Seção de Segurança -->
                     <div class="profile-section">
                         <h3><i class="fas fa-shield-alt"></i> Segurança</h3>
@@ -424,16 +559,19 @@
                             <form id="password-form" class="profile-form">
                                 <div class="form-group">
                                     <label for="current-password">Senha Atual</label>
-                                    <input type="password" id="current-password" placeholder="Digite sua senha atual" required>
+                                    <input type="password" id="current-password" placeholder="Digite sua senha atual"
+                                        required>
                                 </div>
                                 <div class="form-group">
                                     <label for="new-password">Nova Senha</label>
-                                    <input type="password" id="new-password" placeholder="Digite a nova senha" required minlength="6">
+                                    <input type="password" id="new-password" placeholder="Digite a nova senha" required
+                                        minlength="6">
                                     <small>Mínimo 6 caracteres</small>
                                 </div>
                                 <div class="form-group">
                                     <label for="confirm-password">Confirmar Nova Senha</label>
-                                    <input type="password" id="confirm-password" placeholder="Confirme a nova senha" required minlength="6">
+                                    <input type="password" id="confirm-password" placeholder="Confirme a nova senha"
+                                        required minlength="6">
                                 </div>
                                 <button type="submit" class="btn-primary">
                                     <i class="fas fa-key"></i> Alterar Senha
@@ -442,7 +580,7 @@
                             <div id="password-message" class="profile-message hidden"></div>
                         </div>
                     </div>
-                    
+
                     <!-- Seção de Aparência e Personalização -->
                     <div class="profile-section">
                         <h3><i class="fas fa-palette"></i> Aparência e Personalização</h3>
@@ -451,7 +589,9 @@
                                 <h4>Foto de Perfil</h4>
                                 <div class="photo-upload-area">
                                     <div class="current-photo">
-                                        <img id="profile-photo-preview" src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23e2e8f0'/><text x='50' y='55' text-anchor='middle' font-size='30' fill='%2394a3b8'>👤</text></svg>" alt="Foto de Perfil">
+                                        <img id="profile-photo-preview"
+                                            src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23e2e8f0'/><text x='50' y='55' text-anchor='middle' font-size='30' fill='%2394a3b8'>👤</text></svg>"
+                                            alt="Foto de Perfil">
                                     </div>
                                     <div class="photo-upload-controls">
                                         <input type="file" id="profile-photo-input" accept="image/*" class="hidden">
@@ -468,7 +608,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="currency-section">
                                 <h4>Moeda Padrão</h4>
                                 <div class="form-group">
@@ -481,20 +621,21 @@
                                     <small>Esta será a moeda exibida em toda a aplicação.</small>
                                 </div>
                             </div>
-                            
+
                             <div id="personalization-message" class="profile-message hidden"></div>
                         </div>
                     </div>
-                    
+
                     <!-- Seção Zona de Perigo -->
                     <div class="profile-section danger-zone">
                         <h3><i class="fas fa-exclamation-triangle"></i> Zona de Perigo</h3>
                         <div class="profile-card danger-card">
                             <div class="danger-warning">
                                 <h4>⚠️ Ações Destrutivas</h4>
-                                <p>As ações nesta seção são <strong>irreversíveis</strong> e resultarão na perda permanente de todos os seus dados.</p>
+                                <p>As ações nesta seção são <strong>irreversíveis</strong> e resultarão na perda
+                                    permanente de todos os seus dados.</p>
                             </div>
-                            
+
                             <div class="danger-actions">
                                 <button type="button" id="delete-account-btn" class="btn-danger-large">
                                     <i class="fas fa-trash-alt"></i> Deletar minha conta permanentemente
@@ -507,13 +648,15 @@
                 <!-- Seção Apoie o Projeto -->
                 <section id="support-page" class="page hidden">
                     <h2><i class="fas fa-heart"></i> Apoie o Desenvolvimento do Full Finanças</h2>
-                    
+
                     <div class="support-card">
                         <div class="support-header">
                             <h3>❤️ Obrigado por usar o Full Finanças!</h3>
-                            <p>Este projeto é desenvolvido com muito amor e dedicação para ajudar você a ter controle total das suas finanças. Se você gostou do projeto e quer apoiar seu desenvolvimento contínuo, considere fazer uma doação.</p>
+                            <p>Este projeto é desenvolvido com muito amor e dedicação para ajudar você a ter controle
+                                total das suas finanças. Se você gostou do projeto e quer apoiar seu desenvolvimento
+                                contínuo, considere fazer uma doação.</p>
                         </div>
-                        
+
                         <div class="support-content">
                             <div class="pix-info">
                                 <h4><i class="fas fa-qrcode"></i> Doação via PIX</h4>
@@ -536,7 +679,7 @@
                                     <i class="fas fa-check"></i> Chave copiada!
                                 </div>
                             </div>
-                            
+
                             <div class="support-message">
                                 <h4>🎯 Como sua doação ajuda:</h4>
                                 <ul>
@@ -577,7 +720,8 @@
                 <section id="feedback-page" class="page hidden">
                     <h2>Relatar um Problema ou Sugestão</h2>
                     <div class="card-large" style="max-width: 800px; margin: auto;">
-                        <p style="margin-bottom: 1.5rem;">Sua opinião é fundamental para melhorar o Full Finanças! Use o formulário abaixo para nos enviar uma sugestão ou relatar um bug que você encontrou.</p>
+                        <p style="margin-bottom: 1.5rem;">Sua opinião é fundamental para melhorar o Full Finanças! Use o
+                            formulário abaixo para nos enviar uma sugestão ou relatar um bug que você encontrou.</p>
                         <form id="feedback-form">
                             <div class="form-group">
                                 <label for="feedback-type">Tipo de Feedback</label>
@@ -606,90 +750,93 @@
     <div id="transaction-modal" class="modal-container hidden">
         <div class="modal-content">
             <button class="modal-close-btn">&times;</button>
-            <h3 id="transaction-modal-title">Nova Transação</h3><div id="transaction-message" class="form-message hidden"></div><form id="transaction-form">
+            <h3 id="transaction-modal-title">Nova Transação</h3>
+            <div id="transaction-message" class="form-message hidden"></div>
+            <form id="transaction-form">
 
-    <input type="hidden" id="transaction-id">
-
-
-
-    <div class="form-group">
-
-        <label>Tipo</label>
-
-        <div id="transaction-type-selector" class="segmented-control">
-
-            <button type="button" class="sg-btn active" data-value="despesa">Despesa</button>
-
-            <button type="button" class="sg-btn" data-value="receita">Receita</button>
-
-            <button type="button" class="sg-btn" data-value="transferencia">Transferência</button>
-
-        </div>
-
-        <input type="hidden" id="transaction-type" value="despesa">
-
-    </div>
+                <input type="hidden" id="transaction-id">
 
 
 
-    <div class="form-group">
+                <div class="form-group">
 
-        <label for="transaction-description">Descrição</label>
+                    <label>Tipo</label>
 
-        <input type="text" id="transaction-description" required>
+                    <div id="transaction-type-selector" class="segmented-control">
 
-    </div>
+                        <button type="button" class="sg-btn active" data-value="despesa">Despesa</button>
 
-    <div class="form-group">
+                        <button type="button" class="sg-btn" data-value="receita">Receita</button>
 
-        <label for="transaction-amount">Valor</label>
+                        <button type="button" class="sg-btn" data-value="transferencia">Transferência</button>
 
-        <input type="number" step="0.01" id="transaction-amount" placeholder="R$ 0,00" required>
+                    </div>
 
-    </div>
+                    <input type="hidden" id="transaction-type" value="despesa">
 
-    <div class="form-group">
+                </div>
 
-        <label for="transaction-date">Data</label>
 
-        <input type="date" id="transaction-date" required>
 
-    </div>
+                <div class="form-group">
 
-    <div class="form-group">
+                    <label for="transaction-description">Descrição</label>
 
-        <label for="transaction-account">Conta</label>
+                    <input type="text" id="transaction-description" required>
 
-        <select id="transaction-account" required></select>
+                </div>
 
-    </div>
+                <div class="form-group">
 
-    <div class="form-group">
+                    <label for="transaction-amount">Valor</label>
 
-        <label for="transaction-category">Categoria</label>
+                    <input type="number" step="0.01" id="transaction-amount" placeholder="R$ 0,00" required>
 
-        <input type="text" id="transaction-category" list="common-categories" required>
+                </div>
 
-        <div id="category-chips" class="category-chips-container">
+                <div class="form-group">
 
-            </div>
+                    <label for="transaction-date">Data</label>
 
-    </div>
+                    <input type="date" id="transaction-date" required>
 
-    <div class="form-group form-group-checkbox">
-        <input type="checkbox" id="transaction-paid" checked>
-        <label for="transaction-paid">Marcar como pago</label>
-    </div>
+                </div>
 
-    
+                <div class="form-group">
 
-    <div class="form-actions">
+                    <label for="transaction-account">Conta</label>
 
-        <button type="submit" id="save-transaction-btn" class="btn-primary">Salvar</button>
+                    <select id="transaction-account" required></select>
 
-        <button type="button" id="save-and-new-btn" class="btn-secondary">Salvar e Novo</button>
+                </div>
 
-    </div></form>
+                <div class="form-group">
+
+                    <label for="transaction-category">Categoria</label>
+
+                    <input type="text" id="transaction-category" list="common-categories" required>
+
+                    <div id="category-chips" class="category-chips-container">
+
+                    </div>
+
+                </div>
+
+                <div class="form-group form-group-checkbox">
+                    <input type="checkbox" id="transaction-paid" checked>
+                    <label for="transaction-paid">Marcar como pago</label>
+                </div>
+
+
+
+                <div class="form-actions">
+
+                    <button type="submit" id="save-transaction-btn" class="btn-primary">Salvar</button>
+
+                    <button type="button" id="save-and-new-btn" class="btn-secondary">Salvar e Novo</button>
+
+                </div>
+            </form>
         </div>
     </div>
 
@@ -750,7 +897,8 @@
                 <input type="hidden" id="budget-id">
                 <div class="form-group">
                     <label for="budget-category">Categoria</label>
-                    <input type="text" id="budget-category" list="common-categories" placeholder="Ex: Alimentação" required>
+                    <input type="text" id="budget-category" list="common-categories" placeholder="Ex: Alimentação"
+                        required>
                 </div>
                 <div class="form-group">
                     <label for="budget-amount">Valor Mensal</label>
@@ -831,7 +979,8 @@
             <div class="modal-body">
                 <div class="delete-warning">
                     <h4>⚠️ ATENÇÃO: Esta ação é IRREVERSÍVEL!</h4>
-                    <p>A exclusão da sua conta resultará na perda <strong>permanente</strong> de todos os seus dados:</p>
+                    <p>A exclusão da sua conta resultará na perda <strong>permanente</strong> de todos os seus dados:
+                    </p>
                     <ul>
                         <li>• Todas as suas contas bancárias</li>
                         <li>• Todas as transações (receitas e despesas)</li>
@@ -843,13 +992,13 @@
                     </ul>
                     <p><strong>Esta ação não pode ser desfeita.</strong></p>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="confirm-email">Para confirmar, digite seu email:</label>
                     <input type="email" id="confirm-email" placeholder="Digite seu email completo" required>
                     <small>Você deve digitar exatamente: <strong id="user-email-display"></strong></small>
                 </div>
-                
+
                 <div id="delete-account-message" class="form-message hidden"></div>
                 <div class="delete-progress hidden">
                     <div class="spinner"></div>
@@ -868,13 +1017,14 @@
     <!-- Scripts JS -->
     <script type="module" src="firebase-config.js"></script>
     <script type="module" src="js/ui.js/main.js"></script>
-    
+
     <!-- Tour Guiado para Novos Usuários -->
     <div id="tour-overlay" class="tour-overlay hidden"></div>
     <div id="tour-tooltip" class="tour-tooltip hidden">
         <div class="tour-tooltip-header">
             <span id="tour-title"></span>
-            <button id="tour-close-btn" class="tour-close-btn" title="Pular Tour" aria-label="Pular Tour">&times;</button>
+            <button id="tour-close-btn" class="tour-close-btn" title="Pular Tour"
+                aria-label="Pular Tour">&times;</button>
         </div>
         <div id="tour-text" class="tour-tooltip-text"></div>
         <div class="tour-progress"></div>
@@ -889,5 +1039,45 @@
         <i class="fas fa-redo-alt"></i>
         Reiniciar Tour
     </button>
+
+    <!-- Função de Scroll Suave Customizada -->
+    <script>
+        function smoothScrollTo(targetId) {
+            const target = document.getElementById(targetId);
+            if (!target) return;
+
+            const startPosition = window.pageYOffset;
+            const targetPosition = target.getBoundingClientRect().top + startPosition;
+            const distance = targetPosition - startPosition;
+            const duration = 1200; // 1.2 segundos
+            let startTime = null;
+
+            // Função de easing (ease-in-out)
+            function easeInOutCubic(t) {
+                return t < 0.5
+                    ? 4 * t * t * t
+                    : 1 - Math.pow(-2 * t + 2, 3) / 2;
+            }
+
+            function animation(currentTime) {
+                if (startTime === null) startTime = currentTime;
+                const timeElapsed = currentTime - startTime;
+                const progress = Math.min(timeElapsed / duration, 1);
+                const ease = easeInOutCubic(progress);
+
+                window.scrollTo(0, startPosition + distance * ease);
+
+                if (timeElapsed < duration) {
+                    requestAnimationFrame(animation);
+                }
+            }
+
+            requestAnimationFrame(animation);
+        }
+    </script>
+
+    <!-- Mascotes Interativos -->
+    <script src="js/ui.js/mascots.js" type="module"></script>
 </body>
+
 </html>
