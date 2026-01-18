@@ -10,7 +10,8 @@
     "react-test": "echo \"Error: no test specified\" && exit 1",
     "electron-start": "wait-on http://localhost:5173 && electron .",
     "dev": "concurrently \"npm:react-start\" \"wait-on http://localhost:5173 && electron .\"",
-    "build": "npm run react-build && electron-builder",
+    "build": "vite build",
+    "build-electron": "npm run react-build && electron-builder",
     "eject": "react-scripts eject"
   },
   "repository": {
