@@ -2,12 +2,16 @@
   "name": "full-finan-as",
   "version": "1.0.0",
   "description": "Transforme suas finanças com o sistema de controle financeiro mais completo e intuitivo da web! Gerencie suas rendas, despesas, cartões de crédito, orçamentos e objetivos em um só lugar, com uma interface moderna e responsiva.",
-  "main": "firebase-config.js",
+  "main": "electron-main.js",
+  "homepage": "./",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "react-start": "vite",
+    "react-build": "vite build",
+    "react-test": "echo \"Error: no test specified\" && exit 1",
+    "electron-start": "wait-on http://localhost:5173 && electron .",
+    "dev": "concurrently \"npm:react-start\" \"wait-on http://localhost:5173 && electron .\"",
+    "build": "npm run react-build && electron-builder",
+    "eject": "react-scripts eject"
   },
   "repository": {
     "type": "git",
@@ -22,5 +26,43 @@
   "homepage": "https://github.com/Jottaaa12/full-finan-as#readme",
   "dependencies": {
     "vite": "^7.1.6"
+  },
+  "devDependencies": {
+    "electron": "^40.0.0",
+    "electron-builder": "^26.4.0",
+    "wait-on": "^8.0.0",
+    "concurrently": "^9.1.0"
+  },
+  "build": {
+    "appId": "com.fullfinancas.app",
+    "productName": "Full Finanças",
+    "files": [
+      "dist/**/*",
+      "node_modules/**/*",
+      "electron-main.js",
+      "preload.js",
+      "package.json"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        },
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
   }
 }
